@@ -80,18 +80,20 @@ curl -H "Accept: application/json" http://localhost:8080/api/github/users/nonexi
 
 **Example Successful Response (200 OK):**
 ```json
-{
-    "repositoryName": "Spoon-Knife",
-    "ownerLogin": "octocat",
-    "branches": [
+[
     {
-        "name": "main",
-        "lastCommitSha": "your-sha-here"
+        "repositoryName": "Spoon-Knife",
+        "ownerLogin": "octocat",
+        "branches": [
+            {
+                "name": "main",
+                "lastCommitSha": "your-sha-here"
+            }
+            // ... more branches
+        ]
     }
-    // ... more branches
-    ]
-}
-// ... more repositories
+    // ... more repositories
+]
 ```
 
 **Example Error Response (404 Not Found):**
