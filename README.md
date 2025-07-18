@@ -79,43 +79,43 @@ curl -H "Accept: application/json" http://localhost:8080/api/github/users/nonexi
 ```
 
 **Example Successful Response (200 OK):**
-    ```json
+```json
+{
+    "repositoryName": "Spoon-Knife",
+    "ownerLogin": "octocat",
+    "branches": [
     {
-        "repositoryName": "Spoon-Knife",
-        "ownerLogin": "octocat",
-        "branches": [
-        {
-            "name": "main",
-            "lastCommitSha": "your-sha-here"
-        }
-        // ... more branches
-        ]
+        "name": "main",
+        "lastCommitSha": "your-sha-here"
     }
-    // ... more repositories
-    ```
+    // ... more branches
+    ]
+}
+// ... more repositories
+```
 
 **Example Error Response (404 Not Found):**
-    ```json
-    {
-        "status": 404,
-        "message": "User 'nonexistentuser1234567890abcdef' not found on GitHub."
-    }
-    ```
+```json
+{
+    "status": 404,
+    "message": "User 'nonexistentuser1234567890abcdef' not found on GitHub."
+}
+```
 
 **Example Error Response(406 Not Acceptable):**
-    ```json
-    {
-        "status": 406,
-        "message": "Client requested unsupported media type. Please set 'Accept' header to 'application/json'."
-    }
-    ```
+```json
+{
+    "status": 406,
+    "message": "Client requested unsupported media type. Please set 'Accept' header to 'application/json'."
+}
+```
 
 ## Running Tests
 
 ### To tun the integration test:
-    ```bash
-    mvn test
-    ```
+```bash
+mvn test
+```
 
 ## Considerations
 
