@@ -32,11 +32,9 @@ public class GitHubService {
     }
     
     public List<RepositoryInfo> getUserRepositories(String username) {
-        // Nagłówki wymagane przez GitHub API (Accept: application/vnd.github.v3+json)
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-        // URL do pobierania repozytoriów użytkownika
         String reposUrl = githubApiBaseUrl + "/users/" + username + "/repos";
 
          ResponseEntity<List<GithubRepository>> response;
@@ -48,10 +46,8 @@ public class GitHubService {
                     new ParameterizedTypeReference<List<GithubRepository>>() {}
             );
         } catch (HttpClientErrorException.NotFound ex) {
-            // Obsługa błędu 404 - użytkownik nie istnieje
             throw new UserNotFoundException("User '" + username + "' not found on GitHub.");
         } catch (HttpClientErrorException ex) {
-            // Obsługa innych błędów HTTP
             throw new RuntimeException("Error communicating with GitHub API: " + ex.getMessage(), ex);
         }
 
@@ -61,7 +57,6 @@ public class GitHubService {
             return Collections.emptyList();
         }
 
-        // Filtruj repozytoria, które nie są forkami i mapuj je do RepositoryInfo
         return githubRepositories.stream()
                 .filter(repo -> !repo.isFork())
                 .map(this::mapToRepositoryInfo)
@@ -90,9 +85,6 @@ public class GitHubService {
                     new ParameterizedTypeReference<List<GithubBranch>>() {}
             );
         } catch (HttpClientErrorException ex) {
-            // W przypadku błędu przy pobieraniu gałęzi, zwracamy pustą listę
-            // lub logujemy błąd, w zależności od wymagań.
-            // Na potrzeby zadania, pusty, żeby nie zatrzymać głównego przepływu.
             System.err.println("Could not retrieve branches for URL: " + branchesUrl + " - " + ex.getMessage());
             return Collections.emptyList();
         }
@@ -103,7 +95,6 @@ public class GitHubService {
             return Collections.emptyList();
         }
 
-        // Mapuj gałęzie do BranchInfo
         return githubBranches.stream()
                 .map(branch -> new BranchInfo(branch.getName(), branch.getCommit().getSha()))
                 .collect(Collectors.toList());

@@ -6,7 +6,6 @@ public class GithubBranch {
     private String name;
     private Commit commit;
 
-    // Gettery i Settery
     public String getName() {
         return name;
     }

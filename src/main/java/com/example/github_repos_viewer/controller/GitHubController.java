@@ -27,16 +27,6 @@ public class GitHubController {
             @PathVariable String username,
             @RequestHeader(value = "Accept", defaultValue = "application/json") String acceptHeader) {
 
-        // Zgodnie z wymaganiami, jeśli Accept nie jest "application/json", rzucamy błąd.
-        // Spring automatycznie obsłuży HttpMediaTypeNotAcceptableException
-        // jeśli producent nie może obsłużyć żądanego typu.
-        // Jeśli chcemy to zrobić manualnie, można dodać:
-        /*
-        if (!MediaType.APPLICATION_JSON_VALUE.equals(acceptHeader)) {
-            throw new HttpMediaTypeNotAcceptableException("Please set 'Accept' header to 'application/json'");
-        }
-        */
-
         List<RepositoryInfo> repositories = gitHubService.getUserRepositories(username);
         return ResponseEntity.ok(repositories);
     }

@@ -6,9 +6,8 @@ public class GithubRepository {
     private String name;
     private Owner owner;
     private boolean fork;
-    private String branchesUrl; // URL do pobierania gałęzi
+    private String branchesUrl;
 
-    // Gettery i Settery (potrzebne do deserializacji JSON)
     public String getName() {
         return name;
     }
@@ -33,10 +32,8 @@ public class GithubRepository {
         this.fork = fork;
     }
 
-    // Specjalna adnotacja dla pola "branches_url", bo GitHub używa snake_case
     @JsonProperty("branches_url")
     public String getBranchesUrl() {
-        // Usuwamy "{/branch}" z URL, aby dostać czysty URL do gałęzi
         return branchesUrl != null ? branchesUrl.replace("{/branch}", "") : null;
     }
 
